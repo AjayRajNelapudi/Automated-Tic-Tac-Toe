@@ -1,5 +1,5 @@
 package ttt;
-
+import javax.swing.*;
 public class Judge
 {
 	char field[];
@@ -8,15 +8,21 @@ public class Judge
 					  {0,4,8},{2,4,6}		};
 	char winnerLetter;
 	AlgorithmDeAjay ADA;
+	JButton b[];
 	
-	Judge(char field[], AlgorithmDeAjay ADA)
+	Judge(FrontEnd target)
 	{
-		this.field=field;
-		this.ADA=ADA;
+		this.b=target.field;
 	}
 	
 	public void checkWinner()
 	{
+		for(int i=0;i<9;i++)
+		{
+			String value=b[i].getActionCommand();
+			this.field[i]=value.charAt(0);
+		}
+		
 		for(int i=0;i<8;i++)
 		{
 			if(patternCheck(pattern[i][0], pattern[i][1], pattern[i][2]))

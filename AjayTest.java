@@ -1,28 +1,20 @@
 package ttt;
-import javax.swing.*;
+
 public class AlgorithmDeAjay
 {
 	char field[];
+	short change;
 	int pattern[][]= {{0,1,2},{3,4,5},{6,7,8},
 					  {0,3,6},{1,4,7},{2,5,8},
 					  {0,4,8},{2,4,6}		};
-	JButton b[];
-
-	AlgorithmDeAjay(JButton b[])
+	
+	AlgorithmDeAjay(char field[])
 	{
-		field=new char[9];
-		this.b=b;
-
+		this.field=field;
 	}
 
 	public void makeMove()
 	{
-		for(int i=0;i<9;i++)
-		{
-			String value=b[i].getActionCommand();
-			this.field[i]=value.charAt(0);
-		}
-
 		if(attack())
 		{
 			return;
@@ -36,14 +28,13 @@ public class AlgorithmDeAjay
 	
 	public boolean defend()
 	{
-		//System.out.println("Defense");
-		
+		System.out.println("Defense");
 		for(int i=7;i>=0;i--)
 		{
 			//System.out.println(pattern[i][0] + "," + pattern[i][1] + "," + pattern[i][2]);
 			if(decideMove(pattern[i][0], pattern[i][1], pattern[i][2],'X'))
 			{
-				//System.out.println(pattern[i][0] + "," + pattern[i][1] + "," + pattern[i][2]);
+				System.out.println(pattern[i][0] + "," + pattern[i][1] + "," + pattern[i][2]);
 				return true;
 			}
 		}
@@ -59,13 +50,13 @@ public class AlgorithmDeAjay
 	
 	public boolean attack()
 	{
-		//System.out.println("Attack");
+		System.out.println("Attack");
 		
 		for(int i=7;i>=0;i--)
 		{
 			if(decideMove(pattern[i][0], pattern[i][1], pattern[i][2],'O'))
 			{
-				//System.out.println(pattern[i][0] + "," + pattern[i][1] + "," + pattern[i][2]);
+				System.out.println(pattern[i][0] + "," + pattern[i][1] + "," + pattern[i][2]);
 				return true;
 			}
 		}
@@ -76,17 +67,17 @@ public class AlgorithmDeAjay
 	{
 		if(field[x]==var && field[y]==var && isDigit(field[z]))
 		{
-			setZero(z);
+			field[z]='O';
 			return true;
 		}
 		else if(field[x]==var && isDigit(field[y]) && field[z]==var)
 		{
-			setZero(y);
+			field[y]='O';
 			return true;
 		}
 		else if(isDigit(field[x]) && field[y]==var && field[z]==var)
 		{
-			setZero(x);
+			field[x]='O';
 			return true;
 		}
 		
@@ -100,7 +91,7 @@ public class AlgorithmDeAjay
 		{
 			if(field[edge[i][0]]=='X' && field[edge[i][2]]=='X')
 			{
-				setZero(edge[i][1]);
+				field[edge[i][1]]='O';
 				return true;
 			}
 		}
@@ -108,10 +99,12 @@ public class AlgorithmDeAjay
 	}
 	
 	public void advancedAttack()
-	{	
+	{
+		char myMove='O';
+		
 		if(isDigit(field[4]))
 		{
-			setZero(4);
+			field[4]=myMove;
 			return;
 		}
 		else
@@ -121,7 +114,7 @@ public class AlgorithmDeAjay
 			{
 				if(isDigit(field[i]))
 				{
-					setZero(i);
+					field[i]=myMove;
 					return;
 				}
 			}
@@ -131,7 +124,7 @@ public class AlgorithmDeAjay
 			{
 				if(isDigit(field[i]))
 				{
-					setZero(i);
+					field[i]=myMove;
 					return;
 				}
 			}
@@ -150,10 +143,5 @@ public class AlgorithmDeAjay
 			}
 		}
 		return false;
-	}
-	
-	public void setZero(int n)
-	{
-		b[n].setText("O");
 	}
 }
