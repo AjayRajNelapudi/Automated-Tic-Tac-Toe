@@ -1,6 +1,8 @@
 package ttt;
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
-public class Judge
+public class Judge implements ActionListener
 {
 	char field[];
 	int pattern[][]= {{0,1,2},{3,4,5},{6,7,8},
@@ -10,17 +12,18 @@ public class Judge
 	AlgorithmDeAjay ADA;
 	JButton b[];
 	
-	Judge(FrontEnd target)
+	Judge(JButton b[], AlgorithmDeAjay AI)
 	{
-		this.b=target.field;
+		this.b=b;
+		this.ADA=AI;
+		field=new char[9];
 	}
 	
-	public void checkWinner()
-	{
+	public void checkWinner(JButton b[])
+	{	
 		for(int i=0;i<9;i++)
 		{
-			String value=b[i].getActionCommand();
-			this.field[i]=value.charAt(0);
+			this.field[i]=b[i].getActionCommand().charAt(0);
 		}
 		
 		for(int i=0;i<8;i++)
@@ -54,7 +57,31 @@ public class Judge
 	
 	public void declareWinner()
 	{
-		System.out.println("The winner is " + winnerLetter);
+		Frame f=new Frame("Game Over");
+		f.setSize(200,200);
+		f.setLayout(new FlowLayout());
+		Label status=new Label();
+		f.setVisible(true);
+		f.setBackground(Color.RED);
+		status.setText("The winner is letter '" + winnerLetter + "' player");
+		Label wishes=new Label();
+		if(winnerLetter=='X')
+		{
+			wishes.setText("Congratulations!");
+		}
+		else if(winnerLetter=='O')
+		{
+			wishes.setText("You Lose!");
+		}
+		f.add(status);
+		f.add(wishes);
+		Button okButton=new Button("OK");
+		f.add(okButton);
+		okButton.addActionListener(this);
+	}
+	
+	public void actionPerformed(ActionEvent e)
+	{
 		System.exit(0);
 	}
 	
@@ -72,7 +99,16 @@ public class Judge
 	
 	public void gameDraw()
 	{
-		System.out.println("Game Draw");
-		System.exit(0);
+		Frame f=new Frame("Game Over");
+		f.setSize(200,200);
+		f.setLayout(new FlowLayout());
+		Label status=new Label();
+		f.setVisible(true);
+		f.setBackground(Color.RED);
+		status.setText("Game Draw");
+		f.add(status);
+		Button okButton=new Button("OK");
+		f.add(okButton);
+		okButton.addActionListener(this);
 	}
 }

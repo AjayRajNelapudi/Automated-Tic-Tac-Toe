@@ -1,18 +1,20 @@
 package ttt;
 import javax.swing.*;
-public class AlgorithmDeAjay
+import java.awt.*;
+public class AlgorithmDeAjay 
 {
 	char field[];
 	int pattern[][]= {{0,1,2},{3,4,5},{6,7,8},
 					  {0,3,6},{1,4,7},{2,5,8},
 					  {0,4,8},{2,4,6}		};
 	JButton b[];
-
+	Font fontDescription;
+	
 	AlgorithmDeAjay(JButton b[])
 	{
 		field=new char[9];
 		this.b=b;
-
+		fontDescription=new Font("Arial", Font.BOLD,43);
 	}
 
 	public void makeMove()
@@ -36,7 +38,26 @@ public class AlgorithmDeAjay
 	
 	public boolean defend()
 	{
-		//System.out.println("Defense");
+		
+		if(firstMove())
+		{
+			int trickyEdge[][] = {{0,8},{2,6}};
+			
+			for(int i=0;i<2;i++)
+			{
+				if(field[trickyEdge[i][0]]=='X')
+				{
+					setZero(trickyEdge[i][1]);
+					return true;
+				}
+				
+				if(field[trickyEdge[i][1]]=='X')
+				{
+					setZero(trickyEdge[i][0]);
+					return true;
+				}
+			}
+		}
 		
 		for(int i=7;i>=0;i--)
 		{
@@ -95,10 +116,12 @@ public class AlgorithmDeAjay
 	
 	public boolean advancedDefense()
 	{
-		int edge[][]= {{1,2,5},{5,8,7},{7,6,3},{3,0,1}};
-		for(int i=0;i<4;i++)
+		int edge[][] = {{7,8,2},{7,6,0},{3,6,8},{3,0,2},
+						{1,0,6},{1,2,8},{5,8,6},{5,2,0},
+						{1,2,5},{5,8,7},{7,6,3},{3,0,1}};
+		for(int i=0;i<12;i++)
 		{
-			if(field[edge[i][0]]=='X' && field[edge[i][2]]=='X')
+			if(field[edge[i][0]]=='X' && field[edge[i][2]]=='X' && isDigit(field[edge[i][1]]))
 			{
 				setZero(edge[i][1]);
 				return true;
@@ -152,8 +175,27 @@ public class AlgorithmDeAjay
 		return false;
 	}
 	
+	public boolean firstMove()
+	{
+		int nonPlayedFields=0;
+		for(char element: field)
+		{
+			if(isDigit(element))
+			{
+				nonPlayedFields++;
+			}
+		}
+		
+		if(nonPlayedFields==8)
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	public void setZero(int n)
 	{
+		b[n].setFont(fontDescription);
 		b[n].setText("O");
 	}
 }
