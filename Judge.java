@@ -62,8 +62,8 @@ public class Judge implements ActionListener
 		f.setLayout(new FlowLayout());
 		Label status=new Label();
 		f.setVisible(true);
-		f.setBackground(Color.RED);
-		status.setText("The winner is letter '" + winnerLetter + "' player");
+		f.setBackground(Color.orange);
+		status.setText("The winner is letter '" + winnerLetter + " player");
 		Label wishes=new Label();
 		if(winnerLetter=='X')
 		{
@@ -104,7 +104,7 @@ public class Judge implements ActionListener
 		f.setLayout(new FlowLayout());
 		Label status=new Label();
 		f.setVisible(true);
-		f.setBackground(Color.RED);
+		f.setBackground(Color.orange);
 		status.setText("Game Draw");
 		f.add(status);
 		Button okButton=new Button("OK");

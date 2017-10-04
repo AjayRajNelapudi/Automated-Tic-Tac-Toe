@@ -1,7 +1,7 @@
 package ttt;
 import javax.swing.*;
 import java.awt.*;
-public class AlgorithmDeAjay 
+public class AlgorithmDeAjay
 {
 	char field[];
 	int pattern[][]= {{0,1,2},{3,4,5},{6,7,8},
@@ -38,26 +38,7 @@ public class AlgorithmDeAjay
 	
 	public boolean defend()
 	{
-		
-		if(firstMove())
-		{
-			int trickyEdge[][] = {{0,8},{2,6}};
-			
-			for(int i=0;i<2;i++)
-			{
-				if(field[trickyEdge[i][0]]=='X')
-				{
-					setZero(trickyEdge[i][1]);
-					return true;
-				}
-				
-				if(field[trickyEdge[i][1]]=='X')
-				{
-					setZero(trickyEdge[i][0]);
-					return true;
-				}
-			}
-		}
+		//System.out.println("Defense");
 		
 		for(int i=7;i>=0;i--)
 		{
@@ -116,7 +97,8 @@ public class AlgorithmDeAjay
 	
 	public boolean advancedDefense()
 	{
-		int edge[][] = {{7,8,2},{7,6,0},{3,6,8},{3,0,2},
+		int edge[][] = {{0,3,8},{0,1,8},{2,7,6},{2,5,6},
+						{7,8,2},{7,6,0},{3,6,8},{3,0,2},
 						{1,0,6},{1,2,8},{5,8,6},{5,2,0},
 						{1,2,5},{5,8,7},{7,6,3},{3,0,1}};
 		for(int i=0;i<12;i++)
@@ -137,8 +119,28 @@ public class AlgorithmDeAjay
 			setZero(4);
 			return;
 		}
-		else
+		else 
 		{
+			if(firstMove())
+			{
+				int trickyEdge[][] = {{0,8},{2,6}};
+				
+				for(int i=0;i<2;i++)
+				{
+					if(field[trickyEdge[i][0]]=='X' && isDigit(field[trickyEdge[i][1]]))
+					{
+						setZero(trickyEdge[i][1]);
+						return;
+					}
+					
+					if(field[trickyEdge[i][1]]=='X' && isDigit(field[trickyEdge[i][0]]))
+					{
+						setZero(trickyEdge[i][0]);
+						return;
+					}
+				}
+			}
+			
 			int cornerPoints[]= {0,2,8,6};
 			for(int i: cornerPoints)
 			{

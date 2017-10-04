@@ -18,14 +18,14 @@ public class FrontEnd implements ActionListener
 		//Dimension size=new Dimension(30,30);
 		f= new Frame("AUTOMATA - TIC TAC TOE");
 		f.setLayout(new GridLayout(3,3,100,100));
-		f.setBackground(Color.ORANGE);
+		f.setBackground(Color.cyan);
 		for(int i=0;i<9;i++)
 		{
 			field[i]=new JButton();
 			//field[i].setSize(size);
 			field[i].setText(buttonLabels[i]);
 			//field[i].setForeground(Color.BLACK);
-			field[i].setBackground(Color.BLUE);
+			field[i].setBackground(Color.white);
 			field[i].addActionListener(this);
 			f.add(field[i]);
 		}
