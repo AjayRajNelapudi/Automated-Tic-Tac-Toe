@@ -1,6 +1,7 @@
 package ttt;
 import javax.swing.*;
 import java.awt.*;
+
 public class AlgorithmDeAjay
 {
 	char field[];
